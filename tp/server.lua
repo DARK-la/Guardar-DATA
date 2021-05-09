@@ -55,15 +55,22 @@ function()
           local Interior1 = getElementInterior ( source)
           local skin1 = getPlayerSkin (source)
           local armas1 = getPedWeapon ( source)
-       
+          local armadura =  getPedArmor (source)
+          local vida1 =  getElementHealth (source)
+
           setAccountData(acc,"PosX",x) 
           setAccountData(acc,"PosY",y) 
           setAccountData(acc,"PosZ",z) 
+
           setAccountData(acc,"DIMEN",Dimension1)
           setAccountData(acc,"INTERIO",Interior1) 
+
           setAccountData(acc,"skinS",skin1)
           setAccountData(acc,"Money",money)
           setAccountData(acc,"armasJ",armas1)
+          
+          setAccountData(acc,"armadura",armadura)
+          setAccountData(acc,"vida",vida1)
           
      end 
 end) 
@@ -72,18 +79,27 @@ addEventHandler("onPlayerLogin",root,
 function(_,acc) 
      local x,y,z = getAccountData(acc,"PosX"),getAccountData(acc,"PosY"),getAccountData(acc,"PosZ") 
      local Money = getAccountData(acc,"Money") 
+
      local Dimension = getAccountData(acc,"DIMEN")
      local Interior = getAccountData(acc,"INTERIO")
+
      local tenerskin = getAccountData(acc,"skinS")
      local armasJuagador = getAccountData(acc,"armasJ")
+
      local Municion1 = getAccountData(acc,"Muncion")
-     
+
+     local armor = getAccountData(acc,"armadura")
+    local vidaJ = getAccountData(acc,"vida")
+
      setPlayerMoney(source,Money)
      spawnPlayer(source,x,y,z,0,0,Interior,Dimension)
      setPlayerSkin ( source, tenerskin ) 
-     fadeCamera(source, true) 
+      setPedArmor (source,armor)
+      setElementHealth (source,vidaJ)
      setCameraTarget(source)
      giveWeapon(source,armasJuagador)
+
+
      outputChatBox("Datos cargdos, Correctamente...",source,0,255,0,true)
 end)
 
